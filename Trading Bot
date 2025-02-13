@@ -1,0 +1,26 @@
+
+import sys
+import tpqoa
+import pickle
+import numpy as np
+import pandas as pd
+
+sys.path.append('../ch11/')
+
+class OandaTradingBot(tpqoa.tpqoa):
+    def __init__(self, config_file, agent, granularity, units,
+                 sl_distance=None, tsl_distance=None, tp_price=None,
+                 verbose=True):
+        super(OandaTradingBot, self).__init__(config_file)
+        self.agent = agent
+        self.symbol = self.agent.learn_env.symbol
+        self.env = agent.learn_env
+        self.window = self.env.window
+        if granularity is None:
+            self.granularity = agent.learn_env.granularity
+        else:
+            self.granularity = granularity
+        self.units = units
+        self.sl_distance = sl_distance
+        self.tsl_distance = tsl_distance
+        self.tp_price = tp_price
